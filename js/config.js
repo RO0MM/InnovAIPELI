@@ -1,5 +1,3 @@
-// INNOV IA PLAY - Configuración Supabase
-
 window.INNOV_CONFIG = {
   APP_NAME: "INNOV IA PLAY",
   SUPABASE_URL: "https://upqbncbobeoqzrwlfnsw.supabase.co",
