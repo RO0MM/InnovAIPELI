@@ -6,7 +6,7 @@
 
 window.INNOV_CONFIG = {
   APP_NAME: "INNOV IA PLAY",
-  SUPABASE_URL: "https://TU-PROYECTO.supabase.co",
-  SUPABASE_ANON_KEY: "TU_ANON_PUBLIC_KEY",
-  EDGE_PLAYBACK_URL: "https://TU-PROYECTO.supabase.co/functions/v1/playback-url"
+  SUPABASE_URL: "https://upqbncbobeoqzrwlfnsw.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_KlpqVx6Ovg3q9QXx9Ctjnw_TqSr_o_W",
+  EDGE_PLAYBACK_URL: "EDGE_PLAYBACK_URL: "https://upqbncbobeoqzrwlfnsw.supabase.co/functions/v1/playback-url""
 };
