@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>INNOV IA PLAY | Acceso</title>
+  <meta name="theme-color" content="#060812"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <main class="loginPage">
+    <section class="loginCard">
+      <div class="brand">
+        <div class="brandMark">▶</div>
+        <strong>INNOV <span>IA PLAY</span></strong>
+      </div>
+
+      <h1>Entretenimiento privado para tus clientes.</h1>
+      <p>Ingresa el código de acceso entregado por INNOV IA para ver el catálogo habilitado.</p>
+
+      <form id="accessForm">
+        <div class="field">
+          <label for="accessCode">Código de acceso</label>
+          <input id="accessCode" autocomplete="one-time-code" placeholder="INNOV-XXXXX-XXXXX" required/>
+        </div>
+        <button class="btn primary" style="width:100%" type="submit">Entrar a INNOV IA PLAY</button>
+      </form>
+
+      <div id="statusBox" style="margin-top:13px"></div>
+
+      <div class="loginFooter">
+        <span class="small muted">Acceso temporal según tu código.</span>
+        <a class="btn dark smallBtn" href="movies.html">Continuar sesión</a>
+      </div>
+
+      <p class="small muted">
+        Plataforma de prueba conectada a Supabase. El panel administrador no aparece en esta página pública.
+      </p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/access.js"></script>
+</body>
+</html>

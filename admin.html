@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>INNOV IA PLAY | Admin</title>
+  <meta name="theme-color" content="#060812"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <main class="loginPage" id="loginAdmin">
+    <section class="loginCard">
+      <div class="brand">
+        <div class="brandMark">⚙</div>
+        <strong>ADMIN <span>INNOV IA</span></strong>
+      </div>
+      <h1>Panel privado.</h1>
+      <p>Inicia sesión con el usuario administrador creado en Supabase Auth.</p>
+
+      <form id="adminLoginForm">
+        <div class="field">
+          <label>Email administrador</label>
+          <input id="adminEmail" type="email" placeholder="admin@innovia.com" required>
+        </div>
+        <div class="field">
+          <label>Contraseña</label>
+          <input id="adminPassword" type="password" required>
+        </div>
+        <button class="btn primary" style="width:100%">Entrar al administrador</button>
+      </form>
+
+      <div id="adminMsg" style="margin-top:13px"></div>
+      <p class="small muted">Este archivo está separado y no se enlaza desde el portal público.</p>
+    </section>
+  </main>
+
+  <section class="adminShell hidden" id="adminApp">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brandMark">▶</div>
+        <strong>INNOV <span>IA</span></strong>
+      </div>
+
+      <div class="sideMenu">
+        <button class="active" data-tab="movies">🎬 Películas</button>
+        <button data-tab="codes">🔐 Códigos</button>
+        <button data-tab="help">🧩 Supabase</button>
+        <button onclick="location.href='movies.html'">🍿 Ver portal</button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      <p class="small muted">
+        Los links se envían al servidor para cifrarse. No se muestran en la tabla ni se guardan en el HTML.
+      </p>
+      <button class="btn dark smallBtn" style="width:100%" id="adminLogout">Cerrar sesión</button>
+    </aside>
+
+    <main class="adminMain">
+      <div class="adminTop">
+        <div>
+          <h1 id="adminTitle">Películas</h1>
+          <div class="small muted" id="adminSubtitle">Gestiona catálogo, posters, estrenos y links protegidos.</div>
+        </div>
+        <button class="btn primary" id="openMovieFormBtn">+ Nueva película</button>
+      </div>
+
+      <div id="adminGlobalMsg"></div>
+
+      <section id="tabMovies">
+        <div class="panel hidden" id="movieFormPanel">
+          <h2 id="movieFormTitle">Nueva película</h2>
+          <form id="movieForm">
+            <input type="hidden" id="movieId">
+
+            <div class="formGrid">
+              <div class="field">
+                <label>Título</label>
+                <input id="mTitle" required placeholder="Ejemplo: Película premium">
+              </div>
+              <div class="field">
+                <label>Categoría</label>
+                <input id="mCategory" placeholder="Estrenos, Acción, Drama...">
+              </div>
+            </div>
+
+            <div class="formGrid three">
+              <div class="field">
+                <label>Tipo</label>
+                <select id="mKind">
+                  <option>Película</option>
+                  <option>Serie</option>
+                  <option>Anime</option>
+                  <option>Documental</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Año</label>
+                <input id="mYear" placeholder="2026">
+              </div>
+              <div class="field">
+                <label>Calidad</label>
+                <select id="mQuality">
+                  <option>HD</option>
+                  <option>FHD</option>
+                  <option>4K</option>
+                  <option>CAM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Descripción</label>
+              <textarea id="mDescription" placeholder="Sinopsis corta y comercial..."></textarea>
+            </div>
+
+            <div class="formGrid three">
+              <div class="field">
+                <label>Duración</label>
+                <input id="mDuration" placeholder="1h 45m">
+              </div>
+              <div class="field">
+                <label>Poster URL</label>
+                <input id="mPoster" placeholder="https://...">
+              </div>
+              <div class="field">
+                <label>Banner URL</label>
+                <input id="mBanner" placeholder="https://...">
+              </div>
+            </div>
+
+            <div class="formGrid">
+              <div class="field">
+                <label>Link tráiler</label>
+                <input id="mTrailer" placeholder="Link Drive / video. En edición déjalo vacío para conservar.">
+              </div>
+              <div class="field">
+                <label>Link película</label>
+                <input id="mVideo" placeholder="Link Drive. En edición déjalo vacío para conservar.">
+              </div>
+            </div>
+
+            <div class="formGrid three">
+              <label class="checkRow"><input id="mPremiere" type="checkbox"> Estreno</label>
+              <label class="checkRow"><input id="mFeatured" type="checkbox"> Destacado principal</label>
+              <label class="checkRow"><input id="mActive" type="checkbox" checked> Activo</label>
+            </div>
+
+            <div class="actions" style="margin-top:14px">
+              <button class="btn primary">Guardar película</button>
+              <button type="button" class="btn dark" onclick="closeMovieForm()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="panel">
+          <div class="sectionHead">
+            <h2>Lista de películas</h2>
+            <span class="small muted" id="movieCount"></span>
+          </div>
+          <div class="tableWrap" id="moviesTable"></div>
+        </div>
+      </section>
+
+      <section id="tabCodes" class="hidden">
+        <div class="panel">
+          <h2>Crear código de acceso</h2>
+          <form id="codeForm">
+            <div class="formGrid three">
+              <div class="field">
+                <label>Código</label>
+                <div style="display:flex;gap:8px">
+                  <input id="cCode" required>
+                  <button type="button" class="btn dark icon" id="generateCodeBtn">↻</button>
+                </div>
+              </div>
+              <div class="field">
+                <label>Vence</label>
+                <input id="cExpires" type="date">
+              </div>
+              <div class="field">
+                <label>Máximo de usos</label>
+                <input id="cMaxUses" type="number" min="1" value="1">
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Nota interna</label>
+              <input id="cNote" placeholder="Cliente, venta, referencia...">
+            </div>
+
+            <div class="formGrid">
+              <label class="checkRow"><input id="cActive" type="checkbox" checked> Código activo</label>
+              <label class="checkRow"><input id="cAllMovies" type="checkbox" checked> Permitir todas las películas</label>
+            </div>
+
+            <div class="field" id="moviePickerWrap">
+              <label>Películas permitidas</label>
+              <div class="pickGrid" id="moviePicker"></div>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary">Crear código</button>
+              <button type="button" class="btn dark" id="clearCodeBtn">Limpiar</button>
+            </div>
+          </form>
+
+          <div class="codeResult hidden" id="codeResult">
+            <b>✅ Código creado y copiado:</b>
+            <div class="codeBox" style="margin-top:9px">
+              <span class="codeText" id="createdCode"></span>
+              <button class="btn dark smallBtn" id="copyCreatedCode">Copiar otra vez</button>
+            </div>
+            <p class="small muted">Por seguridad, el código completo no se vuelve a mostrar en la tabla. Guarda este código al venderlo.</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="sectionHead">
+            <h2>Códigos creados</h2>
+            <span class="small muted" id="codeCount"></span>
+          </div>
+          <div class="tableWrap" id="codesTable"></div>
+        </div>
+      </section>
+
+      <section id="tabHelp" class="hidden">
+        <div class="panel">
+          <h2>Estado de conexión</h2>
+          <p class="muted">Este panel usa Supabase Auth + RLS. Si ves errores de permisos, revisa que tu usuario esté agregado a <b>app_admins</b>.</p>
+          <div class="alert">URL actual configurada: <b id="cfgUrl"></b></div>
+        </div>
+
+        <div class="panel">
+          <h2>Orden recomendado</h2>
+          <ol class="muted" style="line-height:1.7">
+            <li>Ejecuta <b>supabase/01_schema.sql</b>.</li>
+            <li>Crea el usuario admin en Supabase Auth.</li>
+            <li>Ejecuta <b>supabase/02_make_admin.sql</b> con tu correo.</li>
+            <li>Despliega la Edge Function <b>playback-url</b>.</li>
+            <li>Configura <b>js/config.js</b>.</li>
+          </ol>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/admin.js"></script>
+  <script>document.getElementById("cfgUrl") && (document.getElementById("cfgUrl").textContent = (window.INNOV_CONFIG||{}).SUPABASE_URL || "No configurado");</script>
+</body>
+</html>

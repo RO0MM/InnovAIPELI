@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>INNOV IA PLAY | Catálogo</title>
+  <meta name="theme-color" content="#060812"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav wrap">
+      <a class="brand" href="movies.html">
+        <div class="brandMark">▶</div>
+        <strong>INNOV <span>IA PLAY</span></strong>
+      </a>
+
+      <div class="navLinks">
+        <a class="active" href="#inicio">Inicio</a>
+        <button data-kind="all" class="active" onclick="filterByKind('all')">Todo</button>
+        <button data-kind="película" onclick="filterByKind('película')">Películas</button>
+        <button data-kind="serie" onclick="filterByKind('serie')">Series</button>
+        <button data-kind="favorites" onclick="filterByKind('favorites')">Favoritos</button>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="search">
+        <input id="searchInput" placeholder="Buscar películas y series"/>
+        <b>⌕</b>
+      </div>
+
+      <button class="btn dark smallBtn" id="logoutBtn">Salir</button>
+      <button class="btn dark icon mobileToggle" id="mobileToggle">☰</button>
+    </nav>
+
+    <div class="mobileMenu wrap" id="mobileMenu">
+      <a href="#inicio">Inicio</a>
+      <button data-kind="all" onclick="filterByKind('all')">Todo</button>
+      <button data-kind="película" onclick="filterByKind('película')">Películas</button>
+      <button data-kind="serie" onclick="filterByKind('serie')">Series</button>
+      <button data-kind="favorites" onclick="filterByKind('favorites')">Favoritos</button>
+      <button id="logoutBtnMob">Salir</button>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div id="heroBg"></div>
+    <div class="heroBody wrap">
+      <div class="kicker"><i></i><span id="heroKicker">INNOV IA estreno</span></div>
+      <h1 id="heroTitle">INNOV IA PLAY</h1>
+      <div class="meta" id="heroMeta"></div>
+      <p id="heroDesc">Cargando catálogo permitido...</p>
+      <div class="actions">
+        <button class="btn accent" id="heroPlay">▶ Ver ahora</button>
+        <button class="btn dark" id="heroTrailer">🎬 Tráiler</button>
+        <button class="btn dark" id="heroInfo">ⓘ Más información</button>
+      </div>
+      <div id="loadStatus" style="margin-top:16px"></div>
+    </div>
+  </section>
+
+  <main id="content"></main>
+
+  <section class="section">
+    <div class="empty small">
+      Los links de reproducción no están en este HTML. La página pide autorización a Supabase y a la Edge Function solo cuando el usuario presiona reproducir.
+    </div>
+    <div class="footerSpace"></div>
+  </section>
+
+  <div class="modal" id="detailModal">
+    <article class="detail">
+      <div class="detailBanner" id="detailBanner">
+        <button class="btn dark icon" onclick="closeDetail()">✕</button>
+      </div>
+      <div class="detailBody">
+        <h2 id="detailTitle"></h2>
+        <div class="meta" id="detailMeta"></div>
+        <p id="detailDesc"></p>
+        <div class="actions">
+          <button class="btn accent" id="detailPlay">▶ Ver ahora</button>
+          <button class="btn dark" id="detailTrailer">🎬 Tráiler</button>
+          <button class="btn dark" id="detailFav">☆ Favorito</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="cinema" id="cinema">
+    <div class="cinemaHead">
+      <div>
+        <div class="cinemaTitle" id="cinemaTitle">Reproduciendo</div>
+        <div class="small muted" id="playerStatus">Preparando reproducción...</div>
+      </div>
+      <div class="actions">
+        <button class="btn dark smallBtn" onclick="fullscreenVideo()">Pantalla completa</button>
+        <button class="btn accent smallBtn" onclick="closeCinema()">Cerrar</button>
+      </div>
+    </div>
+    <div class="videoBox" id="videoBox">
+      <iframe id="player" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/movies.js"></script>
+</body>
+</html>
